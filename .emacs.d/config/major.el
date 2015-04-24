@@ -119,3 +119,6 @@
 
 ;; Paradox stuff
 (setq paradox-github-token  sensible-github-token)
+
+;; magit stuff
+(global-set-key "\C-ci" 'magit-status)
