@@ -18,7 +18,7 @@
 	  (lambda ()
 	    (local-set-key "o" 'my-gnus-group-list-subscribed-groups )
 	    (setq send-mail-function (quote smtpmail-send-it))
-	  ))
+	    ))
 
 ;; Auctex stuff
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
@@ -100,13 +100,13 @@
   ;; (setq web-mode-markup-indent-offset 2)  ;; for everything, i think
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-extra-auto-pairs
-      '(("erb"  . (("beg" "end")))
-        ("php"  . (("beg" "end")
-                   ("beg" "end")))
-	))
+	'(("erb"  . (("beg" "end")))
+	  ("php"  . (("beg" "end")
+		     ("beg" "end")))
+	  ))
   (setq web-mode-enable-auto-pairing t)
   (setq web-mode-enable-css-colorization t)
-)
+  )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
 
 
@@ -122,3 +122,33 @@
 
 ;; magit stuff
 (global-set-key "\C-ci" 'magit-status)
+
+;; openwith stuff
+(when (require 'openwith nil 'noerror)
+  (setq openwith-associations
+	(list
+	 (list (openwith-make-extension-regexp
+		'("mpg" "mpeg" "mp3" "mp4"
+		  "avi" "wmv" "wav" "mov" "flv"
+		  "ogm" "ogg" "mkv"))
+	       "mpv"
+	       '(file))
+;;	 (list (openwith-make-extension-regexp
+;;		'("xbm" "pbm" "pgm" "ppm" "pnm"
+;;		  "png" "gif" "bmp" "tif" "jpeg" "jpg"))
+;;	       "geeqie"
+;;	       '(file))
+	 (list (openwith-make-extension-regexp
+		'("doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
+	       "libreoffice"
+	       '(file))
+	 '("\\.lyx" "lyx" (file))
+	 '("\\.chm" "kchmviewer" (file))
+	 (list (openwith-make-extension-regexp
+		'("pdf" "ps" "ps.gz" "dvi"))
+	       "qpdfview --unique"
+	       '(file))
+	 ))
+  (openwith-mode 1))
+
+(add-to-list  'mm-inhibit-file-name-handlers 'openwith-file-handler)
