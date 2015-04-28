@@ -22,7 +22,7 @@
 ;; there is something weird about the background, it loads a theme
 ;; then it loads solarized-light.  Otherwise, it is solarized-dark
 ;; (if window-system (load-theme 'wombat t) )
-(if window-system (load-theme 'solarized t) )
+(if window-system (load-theme 'solarized-light t) )
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;; (load-theme 'solarized-dark t)
 

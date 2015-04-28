@@ -4,9 +4,9 @@
 (setq message-directory "~/.mail")
 
 (setq smtp-accounts
-      '(sensible-email-account-smtp-list-1
-	sensible-email-account-smtp-list-2
-	sensible-email-account-smtp-list-3))
+      `(,sensible-email-account-smtp-list-1
+	,sensible-email-account-smtp-list-2
+	,sensible-email-account-smtp-list-3))
 
 (defun my-change-smtp ()
   (save-excursion
