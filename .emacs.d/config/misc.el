@@ -56,3 +56,6 @@
 
 ;; Improve the buffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; display “lambda” as “λ”
+(global-prettify-symbols-mode 1)
