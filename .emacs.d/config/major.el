@@ -14,11 +14,13 @@
   )
 
 (add-hook 'gnus-group-mode-hook
-	  ;; list all the subscribed groups even they contain zero un-read messages
-	  (lambda ()
-	    (local-set-key "o" 'my-gnus-group-list-subscribed-groups )
-	    (setq send-mail-function (quote smtpmail-send-it))
-	    ))
+          ;; list all the subscribed groups even they contain zero un-read messages
+          (lambda ()
+            (local-set-key "o" 'my-gnus-group-list-subscribed-groups )
+            (setq send-mail-function (quote smtpmail-send-it))
+            ))
+
+(customize-set-variable 'gnus-inhibit-startup-message t)
 
 ;; Auctex stuff
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
@@ -26,44 +28,56 @@
 
 (defun prefs-latex-mode ()
   (setq TeX-electric-sub-and-superscript t)
-  (setq LaTeX-math-list
-	(quote
-	 ((?% LaTeX-math-frac "" nil)
-	  ("3" LaTeX-math-sqrt "" nil)
-	  (o LaTeX-math-overline "" nil))))
+  ;; (TeX-add-symbols "foo")
+  (LaTeX-add-environments "align" "align*" "equation*" "theorem")
+  (customize-set-variable 'LaTeX-math-list
+                          (list
+                           '(?% LaTeX-math-frac "" nil)
+                           '(?, LaTeX-math-cdots "" nil)
+                           '("2" LaTeX-math-sqrt "" nil)
+                           '(?o LaTeX-math-overline "" nil)))
+  (customize-set-variable 'TeX-view-program-list '(("qpdfview" "qpdfview --instance emacsauxtex --unique \"\"%o\"#src:%(default-dir)%(buffer-name):%n:0\"")))
+  (customize-set-variable 'TeX-view-program-selection '((output-pdf "qpdfview")))
   (setq LaTeX-font-list
-	(quote
-	 ((1 "" "" "\\mathcal{" "}")
-	  (2 "\\textbf{" "}" "\\mathbf{" "}")
-	  (3 "\\textsc{" "}")
-	  (5 "\\emph{" "}")
-	  (6 "\\textsf{" "}" "\\mathsf{" "}")
-	  (9 "\\textit{" "}" "\\mathit{" "}")
-	  (13 "\\textmd{" "}")
-	  (14 "\\textnormal{" "}" "\\mathnormal{" "}")
-	  (18 "\\textrm{" "}" "\\mathrm{" "}")
-	  (19 "\\textsl{" "}" "\\mathbb{" "}")
-	  (20 "\\texttt{" "}" "\\mathtt{" "}")
-	  (11 "" "" "\\mathfrak{" "}")
-	  (21 "\\textup{" "}")
-	  (4 "" "" t))))
+        (quote
+         ((1 "" "" "\\mathcal{" "}")
+          (2 "\\textbf{" "}" "\\mathbf{" "}")
+          (3 "\\textsc{" "}")
+          (5 "\\emph{" "}")
+          (6 "\\textsf{" "}" "\\mathsf{" "}")
+          (9 "\\textit{" "}" "\\mathit{" "}")
+          (13 "\\textmd{" "}")
+          (14 "\\textnormal{" "}" "\\mathnormal{" "}")
+          (18 "\\textrm{" "}" "\\mathrm{" "}")
+          (19 "\\textsl{" "}" "\\mathbb{" "}")
+          (20 "\\texttt{" "}" "\\mathtt{" "}")
+          (11 "" "" "\\mathfrak{" "}")
+          (21 "\\textup{" "}")
+          (4 "" "" t))))
   )
 
 (add-hook 'LaTeX-mode-hook 'prefs-latex-mode)
 
+(defun setup-qpdfview()
+  ;;(setq TeX-view-program-list '(("qpdfview" "qpdfview --instance emacsauxtex --unique \"\"%o\"#src:%(buffer-name):%n:0\"")))
+  (setq TeX-view-program-list '(("qpdfview" "qpdfview --instance emacsauxtex --unique \"\"%o\"#src:%(default-dir)%(buffer-name):%n:0\"")))
+  (setq TeX-view-program-selection '((output-pdf "qpdfview")))
+  )
+(add-hook 'LaTeX-mode-hook 'setup-qpdfview)     
+
 
 ;; Programming languages identation stuff
-(defun my-c-mode-hook ()
-  (setq c-basic-offset 4))
-(add-hook 'c-mode-hook 'my-c-mode-hook)
-
+;; (defun my-c-mode-hook ()
+;;   (setq c-basic-offset 4))
+;; (add-hook 'c-mode-hook 'my-c-mode-hook)
+;; 
 (defun my-c++-mode-hook ()
   (setq c-basic-offset 4))
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
-
-(defun my-java-mode-hook ()
-  (setq c-basic-offset 6))
-(add-hook 'java-mode-hook 'my-java-mode-hook)
+;; 
+;; (defun my-java-mode-hook ()
+;;   (setq c-basic-offset 6))
+;; (add-hook 'java-mode-hook 'my-java-mode-hook)
 
 
 ;; Rinari stuff
@@ -73,10 +87,6 @@
 ;; RVM stuff
 (require 'rvm)
 (rvm-use-default) ;; use rvm's default ruby for the current Emacs session
-
-;; Lambdada stuff
-(require 'pretty-lambdada)
-(pretty-lambda-for-modes)
 
 ;; Rainbow mode stuff
 (require 'rainbow-mode)
@@ -100,10 +110,10 @@
   ;; (setq web-mode-markup-indent-offset 2)  ;; for everything, i think
   (setq web-mode-code-indent-offset 2)
   (setq web-mode-extra-auto-pairs
-	'(("erb"  . (("beg" "end")))
-	  ("php"  . (("beg" "end")
-		     ("beg" "end")))
-	  ))
+        '(("erb"  . (("beg" "end")))
+          ("php"  . (("beg" "end")
+                     ("beg" "end")))
+          ))
   (setq web-mode-enable-auto-pairing t)
   (setq web-mode-enable-css-colorization t)
   )
@@ -114,11 +124,11 @@
 (defun ri-bind-key ()
   (local-set-key [f1] 'yari))
 
-(defun ri-bind-key ()
-  (local-set-key [f1] 'yari-helm))
+(add-hook 'ruby-mode-hook 'ri-bind-key)
 
 ;; Paradox stuff
 (setq paradox-github-token  sensible-github-token)
+(customize-set-variable 'paradox-automatically-star 't)
 
 ;; magit stuff
 (global-set-key "\C-ci" 'magit-status)
@@ -126,29 +136,82 @@
 ;; openwith stuff
 (when (require 'openwith nil 'noerror)
   (setq openwith-associations
-	(list
-	 (list (openwith-make-extension-regexp
-		'("mpg" "mpeg" "mp3" "mp4"
-		  "avi" "wmv" "wav" "mov" "flv"
-		  "ogm" "ogg" "mkv"))
-	       "mpv"
-	       '(file))
-;;	 (list (openwith-make-extension-regexp
-;;		'("xbm" "pbm" "pgm" "ppm" "pnm"
-;;		  "png" "gif" "bmp" "tif" "jpeg" "jpg"))
-;;	       "geeqie"
-;;	       '(file))
-	 (list (openwith-make-extension-regexp
-		'("doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
-	       "libreoffice"
-	       '(file))
-	 '("\\.lyx" "lyx" (file))
-	 '("\\.chm" "kchmviewer" (file))
-	 (list (openwith-make-extension-regexp
-		'("pdf" "ps" "ps.gz" "dvi"))
-	       "qpdfview --unique"
-	       '(file))
-	 ))
+        (list
+         (list (openwith-make-extension-regexp
+                '("mpg" "mpeg" "mp3" "mp4"
+                  "avi" "wmv" "wav" "mov" "flv"
+                  "ogm" "ogg" "mkv" "webm"))
+               "mpv --force-window"
+               '(file))
+         ;;      (list (openwith-make-extension-regexp
+         ;;             '("xbm" "pbm" "pgm" "ppm" "pnm"
+         ;;               "png" "gif" "bmp" "tif" "jpeg" "jpg"))
+         ;;            "geeqie"
+         ;;            '(file))
+         (list (openwith-make-extension-regexp
+                '("doc" "xls" "ppt" "odt" "ods" "odg" "odp"))
+               "libreoffice"
+               '(file))
+         '("\\.lyx" "lyx" (file))
+         '("\\.chm" "kchmviewer" (file))
+         (list (openwith-make-extension-regexp
+                '("pdf" "ps" "ps.gz" "dvi"))
+               "qpdfview --unique"
+               '(file))
+         ))
   (openwith-mode 1))
 
-(add-to-list  'mm-inhibit-file-name-handlers 'openwith-file-handler)
+
+;; Bundler (bundle for rails) stuff
+(require 'bundler)
+
+
+;; Dired stuff
+
+(require 'dired+)
+
+(add-hook 'dired-load-hook
+          (function (lambda () (load "dired-x"))))
+
+;; allow dired to be able to delete or copy a whole dir.
+(setq dired-recursive-copies '(always))
+(setq dired-recursive-deletes '(top))
+
+;; Allows navigating inside dir
+(put 'dired-find-alternate-file 'disabled nil)
+(setq dired-dwim-target t)
+
+;; Image-viweer stuff
+(eval-after-load 'image '(require 'image+))
+(eval-after-load 'image-dired '(require 'image-dired+))
+(eval-after-load 'image-dired+ '(image-diredx-async-mode 1))
+(define-key image-dired-thumbnail-mode-map "\C-n" 'image-diredx-next-line)
+(define-key image-dired-thumbnail-mode-map "\C-p" 'image-diredx-previous-line)
+(define-key image-dired-thumbnail-mode-map "g" 'revert-buffer)
+
+;; Helm stuff
+(require 'helm)
+(require 'helm-config)
+
+(global-set-key (kbd "C-c h") 'helm-command-prefix)
+
+(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t)
+
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+
+(helm-mode 1)
+
+;; ESS mode
+(require 'ess-site)
+;; test
