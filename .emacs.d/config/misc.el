@@ -37,19 +37,6 @@
 ;; Disables toolbar-mode
 ;; (tool-bar-mode 1)
 
-; Use IDO for both buffer and file completion and ido-everywhere to t
-(setq org-completion-use-ido t)
-(setq ido-everywhere t)
-(setq ido-enable-flex-matching t)
-(setq ido-max-directory-size 100000)
-(ido-mode (quote both))
-(ido-mode 1)
-; Use the current window when visiting files and buffers with ido
-(setq ido-default-file-method 'selected-window)
-(setq ido-default-buffer-method 'selected-window)
-; Usea the current window for indirect buffer display
-(setq org-indirect-buffer-display 'current-window)
-
 ;; Show line numbers, I think
 (autoload 'linum-mode "linum" "toggle line numbers on/off" t) 
 (global-set-key (kbd "C-<f5>") 'linum-mode)
@@ -59,3 +46,17 @@
 
 ;; display “lambda” as “λ”
 (global-prettify-symbols-mode 1)
+
+;; disable common keybinding for closing emacs
+(setq confirm-kill-emacs 'y-or-n-p)
+
+;; put autosaves and backups in a better place
+(custom-set-variables
+  '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
+  '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+
+;; my position in the religious war
+(setq-default indent-tabs-mode nil)
+
+;; It makes helm easier to use
+(global-set-key "\M- " 'hippie-expand)

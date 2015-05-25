@@ -43,17 +43,17 @@
 
 (setq gnus-secondary-select-methods
       `(,`(nnimap ,sensible-email-account-2-name
-	       ,`(nnimap-address ,sensible-email-account-2-server)
-	       ,`(nnimap-server-port ,sensible-email-account-2-imap-port)
-	       ,`(nnimap-stream ssl))
+		  ,`(nnimap-address ,sensible-email-account-2-server)
+		  ,`(nnimap-server-port ,sensible-email-account-2-imap-port)
+		  ,`(nnimap-stream ssl))
 	,`(nnimap ,sensible-email-account-3-name
-	       ,`(nnimap-address ,sensible-email-account-3-server)
-	       ,`(nnimap-server-port ,sensible-email-account-3-imap-port)
-	       ,`(nnimap-stream ssl))
+		  ,`(nnimap-address ,sensible-email-account-3-server)
+		  ,`(nnimap-server-port ,sensible-email-account-3-imap-port)
+		  ,`(nnimap-stream ssl))
 	,`(nnimap ,sensible-email-account-4-name
-	       ,`(nnimap-address ,sensible-email-account-4-server)
-	       ,`(nnimap-server-port ,sensible-email-account-4-imap-port)
-	       ,`(nnimap-stream ssl))))
+		  ,`(nnimap-address ,sensible-email-account-4-server)
+		  ,`(nnimap-server-port ,sensible-email-account-4-imap-port)
+		  ,`(nnimap-stream ssl))))
 
 
 
@@ -69,3 +69,14 @@
  gnus-sum-thread-tree-root ""
  gnus-sum-thread-tree-single-leaf "╰► "
  gnus-sum-thread-tree-vertical "│")
+
+
+;;;;; Not mine magic
+;; (setq mm-automatic-display (remove "text/html" mm-automatic-display))
+;; (setq mm-text-html-renderer 'nil)
+;; (defun wicked/gnus-article-show-html ()
+;;   "Show the current message as HTML mail."
+;;   (interactive)
+;;   (let ((mm-automatic-display (cons "text/html" mm-automatic-display)))
+;;     (gnus-summary-show-article)))
+;; (define-key gnus-article-mode-map "WH" 'wicked/gnus-article-show-html)
