@@ -1,9 +1,12 @@
 ;; UTF-8 support
-;; (set-language-environment "UTF-8")
+(set-language-environment "UTF-8")
 
 
 ;; Better remapping for some keys
 (global-set-key (kbd "C-?") 'help-command)
+(global-set-key (kbd "C-? A v") 'apropos-variable)
+(global-set-key (kbd "C-? A u") 'apropos-user-option)
+(global-set-key (kbd "C-? A d") 'apropos-documentation)
 (global-set-key (kbd "M-?") 'mark-paragraph)
 (global-set-key (kbd "C-h") 'delete-backward-char)
 (global-set-key (kbd "M-h") 'backward-kill-word)
@@ -16,6 +19,11 @@
 ;; Fixes a bug with the keyboard
 (require 'iso-transl)
 
+;; Loads SLIME
+(load (expand-file-name "~/.local/share/quicklisp/slime-helper.el"))
+;; Replace "sbcl" with the path to your implementation
+(setq inferior-lisp-program "sbcl")
+
 ;; Dunno, does something so you can open files in an open session of emacs
 (load "server")
 ;; require 'server)
@@ -24,7 +32,7 @@
 ;; (gnuserv-start)
 ;; (server-start)
 
-;;; Load all ".el" files under ~/.emacs.d/config directory.
+;;; Function for loading all ".el" files under ~/.emacs.d/config directory.
 (defun load-directory (directory)
   "Load recursively all `.el' files in DIRECTORY."
   (dolist (element (directory-files-and-attributes directory nil nil nil))
@@ -39,27 +47,38 @@
         (load (file-name-sans-extension fullpath)))))))
 
 
+;; Org-mode is weird and needs to be installed by hand
+(add-to-list 'load-path "~/Utilities/gits/org-mode/lisp/")
+(add-to-list 'load-path "~/Utilities/gits/org-mode/contrib/lisp" t)
+
 ;; Do package-managing stuff
 (require 'package)
-;; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+;; (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/") t)
 (add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
 (package-initialize)
 
-
+;; Loads my config files
 (load-directory "~/.emacs.d/config")
 
 
+;; As says below
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 98 :width normal)))))
+ )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(paradox-automatically-star t))
+ '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
+ '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(gnus-inhibit-startup-message t)
+ '(magit-use-overlays nil)
+ '(org-refile-targets (quote ((org-agenda-files :level . 1))))
+ '(paradox-automatically-star t t))

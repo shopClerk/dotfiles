@@ -3,13 +3,15 @@
 ;; Helps emacs to not break hard links
 (setq backup-by-copying-when-linked t)
 
+(column-number-mode)
 (menu-bar-mode 1)
+
 
 (when window-system
   (tooltip-mode -1)
   (tool-bar-mode -1))
 
-;; Helps matching parenthesis (it highlights them)
+;; Helps matching parenthesis (it highlights them)  ;; changed recently by corral
 (show-paren-mode 1)
 
 ;; Mutes that goddamn bell
@@ -22,7 +24,12 @@
 ;; there is something weird about the background, it loads a theme
 ;; then it loads solarized-light.  Otherwise, it is solarized-dark
 ;; (if window-system (load-theme 'wombat t) )
-(if window-system (load-theme 'solarized-light t) )
+(require 'moe-theme)
+(require 'moe-theme-switcher)
+(setq calendar-latitude +21)
+(setq calendar-longitude -101)
+;; (if window-system (load-theme 'solarized-light t) )
+;; (if window-system (load-theme 'moe-light t) )
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 ;; (load-theme 'solarized-dark t)
 
@@ -40,6 +47,9 @@
 ;; Show line numbers, I think
 (autoload 'linum-mode "linum" "toggle line numbers on/off" t) 
 (global-set-key (kbd "C-<f5>") 'linum-mode)
+
+;; Highlight Columns
+(global-set-key (kbd "C-<f6>") 'hl-line-mode)
 
 ;; Improve the buffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)

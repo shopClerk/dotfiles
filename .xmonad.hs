@@ -70,6 +70,8 @@ import XMonad.Layout.Combo
 import XMonad.Layout.Grid
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.Named
+import XMonad.Layout.Fullscreen
+import XMonad.Layout.Minimize
 import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Reflect
@@ -113,7 +115,7 @@ basicLayout = Tall nmaster delta ratio where
 tallLayout = named "tall" $ avoidStruts $ basicLayout
 wideLayout = named "wide" $ avoidStruts $ Mirror basicLayout
 singleLayout = named "single" $ avoidStruts $ noBorders Full
-fullscreenLayout = named "fullscreen" $ noBorders Full
+fullscreenLayout = named "fullscreen" $ minimize $ fullscreenFull Full
 imLayout = avoidStruts $ reflectHoriz $ withIMs ratio rosters chatLayout where
     chatLayout      = Grid
     ratio           = 1%6

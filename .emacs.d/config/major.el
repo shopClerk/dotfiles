@@ -5,6 +5,16 @@
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
 
+;; Corral (parenthesis matching) stuff
+;; (require 'corral)
+;; (global-set-key (kbd "M-1") 'corral-parentheses-backward)
+;; (global-set-key (kbd "M-2") 'corral-parentheses-forward)
+;; (global-set-key (kbd "M-[") 'corral-brackets-backward)
+;; (global-set-key (kbd "M-]") 'corral-brackets-forward)
+;; (global-set-key (kbd "M-{") 'corral-braces-backward)
+;; (global-set-key (kbd "M-}") 'corral-braces-forward)
+;; (global-set-key (kbd "M-\"") 'corral-double-quotes-backward)
+
 ;; Gnus stuff
 
 (defun my-gnus-group-list-subscribed-groups ()
@@ -210,8 +220,11 @@
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+
 (helm-mode 1)
 
 ;; ESS mode
-(require 'ess-site)
-;; test
+;; (require 'ess-site)
