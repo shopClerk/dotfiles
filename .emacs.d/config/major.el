@@ -76,23 +76,40 @@
 (add-hook 'LaTeX-mode-hook 'setup-qpdfview)     
 
 
-;; Programming languages identation stuff
+;; C and C++ stuff
 ;; (defun my-c-mode-hook ()
 ;;   (setq c-basic-offset 4))
 ;; (add-hook 'c-mode-hook 'my-c-mode-hook)
 ;; 
 (defun my-c++-mode-hook ()
   (setq c-basic-offset 4))
+
+(defun c++-compile-key ()
+  (local-set-key [f1] 'compile))
+
 (add-hook 'c++-mode-hook 'my-c++-mode-hook)
+(add-hook 'c++-mode-hook 'c++-compile-key)
+
+(add-hook 'c++-mode-hook
+  (lambda ()
+    (unless (file-exists-p "Makefile")
+      (set (make-local-variable 'compile-command)
+	   (let ((file (file-name-nondirectory buffer-file-name)))
+	     (concat "g++ -g -O2 -Wall -o " 
+		     (file-name-sans-extension file)
+		     " " file))))))
+
+(add-hook 'c++-mode-hook
+  (lambda ()
+    (unless (file-exists-p "Makefile")
+      (set (make-local-variable 'compile-command)
+	   (let ((file (file-name-nondirectory buffer-file-name)))
+	     (concat "gdb -i=mi " (file-name-sans-extension file)))))))
 ;; 
 ;; (defun my-java-mode-hook ()
 ;;   (setq c-basic-offset 6))
 ;; (add-hook 'java-mode-hook 'my-java-mode-hook)
 
-
-;; Rinari stuff
-(require 'rinari)
-(global-rinari-mode)
 
 ;; RVM stuff
 (require 'rvm)
@@ -135,6 +152,10 @@
   (local-set-key [f1] 'yari))
 
 (add-hook 'ruby-mode-hook 'ri-bind-key)
+
+;; Rinari stuff
+(require 'rinari)
+(global-rinari-mode)
 
 ;; Paradox stuff
 (setq paradox-github-token  sensible-github-token)
@@ -219,12 +240,48 @@
       helm-ff-file-name-history-use-recentf t)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-
 (global-set-key (kbd "M-x") 'helm-M-x)
-
-(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 (helm-mode 1)
 
 ;; ESS mode
 ;; (require 'ess-site)
+
+;; Python stuff
+;; (require 'python-mode)
+;; (add-to-list 'auto-mode-alist '("\.py\'" . python-mode))
+;; ;; (require 'ipython)
+;; (defun python-mode-preferences-hook ()
+;;   ;; use IPython
+;;   (setq-default py-shell-name "ipython")
+;;   (setq-default py-which-bufname "IPython")
+;;   ;; use the wx backend, for both mayavi and matplotlib
+;;   (setq py-python-command-args
+;;         '("-i" "--gui=wx" "--pylab=wx" "--colors" "Linux"))
+;;   (setq py-force-py-shell-name-p t)
+;;   ;; Improve windows splitting
+;;   (setq-default py-split-windows-on-execute-function 'split-window-horizontally)
+;;   ;; try to automagically figure out indentation
+;;   (setq py-smart-indentation t)
+;;   ;; execute without saving
+;;   ;; (setq py-execute-no-temp t)
+;;   )
+;; 
+;; (add-hook 'python-mode-hook 'python-mode-preferences-hook)
+;; (add-hook 'python-mode-hook 'jedi:setup)
+(elpy-enable)
+(elpy-use-ipython)
+(define-key elpy-mode-map (kbd "C-c C-s") nil)
+(setq elpy-rpc-backend "jedi")
+
+(defun python-prefs-hook ()
+  ;; (local-set-key (kbd "C-c C-\\") 'elpy-rgrep-symbol)
+  (local-set-key (kbd "C-c C-s") 'python-shell-send-region))
+
+(defun elpy-prefs-hook ()
+  (local-set-key (kbd "C-c C-\\") 'elpy-rgrep-symbol))
+
+(add-hook 'python-mode-hook 'python-prefs-hook)
+(add-hook 'elpy-mode-hook 'elpy-prefs-hook)

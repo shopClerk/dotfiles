@@ -1,5 +1,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Misc configs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; Fonts
+;; (set-default-font “Hack-9”)
+
+;; Global key bindings
+
+(define-key global-map (kbd "<f11>") 'calc)
+;; (define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map (kbd "S-<f12>") 'org-agenda)
+(define-key global-map (kbd "<f12>") 'org-capture)
+
+
 ;; Helps emacs to not break hard links
 (setq backup-by-copying-when-linked t)
 
@@ -18,16 +29,16 @@
 (setq visible-bell 1)
 
 (custom-set-faces
- '(default ((t (:family "Liberation Mono" :foundry "unknown" :slant normal :weight normal :height 98 :width normal)))))
+ '(default ((t (:family "Hack" :foundry "bitstream" :slant normal :weight normal :height 96 :width normal)))))
 
 ;; Selects the solarized light theme
 ;; there is something weird about the background, it loads a theme
 ;; then it loads solarized-light.  Otherwise, it is solarized-dark
 ;; (if window-system (load-theme 'wombat t) )
-(require 'moe-theme)
-(require 'moe-theme-switcher)
 (setq calendar-latitude +21)
 (setq calendar-longitude -101)
+(require 'moe-theme)
+(require 'moe-theme-switcher)
 ;; (if window-system (load-theme 'solarized-light t) )
 ;; (if window-system (load-theme 'moe-light t) )
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")

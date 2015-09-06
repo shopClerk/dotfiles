@@ -1,11 +1,5 @@
 ;; force UTF
-(setq org-export-coding-system 'utf8)
-
-;; key bindings
- 
-(define-key global-map (kbd "<f11>") 'org-capture)
-;; (define-key global-map "\C-cl" 'org-store-link)
-(define-key global-map (kbd "<f12>") 'org-agenda)
+;; (setq org-export-coding-system 'utf8)
 
 
 ;; files
