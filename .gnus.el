@@ -72,11 +72,11 @@
 
 
 ;;;;; Not mine magic
-;; (setq mm-automatic-display (remove "text/html" mm-automatic-display))
-;; (setq mm-text-html-renderer 'nil)
-;; (defun wicked/gnus-article-show-html ()
-;;   "Show the current message as HTML mail."
-;;   (interactive)
-;;   (let ((mm-automatic-display (cons "text/html" mm-automatic-display)))
-;;     (gnus-summary-show-article)))
-;; (define-key gnus-article-mode-map "WH" 'wicked/gnus-article-show-html)
+(setq mm-automatic-display (remove "text/html" mm-automatic-display))
+(setq mm-text-html-renderer 'nil)
+(defun wicked/gnus-article-show-html ()
+  "Show the current message as HTML mail."
+  (interactive)
+  (let ((mm-automatic-display (cons "text/html" mm-automatic-display)))
+    (gnus-summary-show-article)))
+(define-key gnus-article-mode-map "WH" 'wicked/gnus-article-show-html)

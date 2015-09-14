@@ -43,7 +43,7 @@
   (customize-set-variable 'LaTeX-math-list
                           (list
                            '(?% LaTeX-math-frac "" nil)
-                           '(?, LaTeX-math-cdots "" nil)
+                           '(?, LaTeX-math-ldots "" nil)
                            '("2" LaTeX-math-sqrt "" nil)
                            '(?o LaTeX-math-overline "" nil)))
   (customize-set-variable 'TeX-view-program-list '(("qpdfview" "qpdfview --instance emacsauxtex --unique \"\"%o\"#src:%(default-dir)%(buffer-name):%n:0\"")))
