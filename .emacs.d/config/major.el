@@ -1,5 +1,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Minor modes configs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun call-special-if-mode-active (mode default-f special-f)
+  (if (eval `(bound-and-true-p ,mode))
+      (call-interactively default-f)
+    (call-interactively special-f)))
+
 ;; Expand region stuff
 
 (require 'expand-region)
@@ -44,10 +49,13 @@
                           (list
                            '(?% LaTeX-math-frac "" nil)
                            '(?, LaTeX-math-ldots "" nil)
+                           '(?\; LaTeX-math-cdots "" nil)
                            '("2" LaTeX-math-sqrt "" nil)
+                           '("C-+" LaTeX-math-oplus "" nil)
                            '(?o LaTeX-math-overline "" nil)))
   (customize-set-variable 'TeX-view-program-list '(("qpdfview" "qpdfview --instance emacsauxtex --unique \"\"%o\"#src:%(default-dir)%(buffer-name):%n:0\"")))
   (customize-set-variable 'TeX-view-program-selection '((output-pdf "qpdfview")))
+  (customize-set-variable 'TeX-newline-function (quote newline-and-indent))
   (setq LaTeX-font-list
         (quote
          ((1 "" "" "\\mathcal{" "}")
@@ -239,10 +247,27 @@
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
 
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+(global-set-key (kbd "M-y") (lambda () (interactive)
+                              (call-special-if-mode-active
+                               'helm-mode
+                               'helm-show-kill-ring
+                               'kill-ring)))
+(global-set-key (kbd "M-x") (lambda () (interactive)
+                              (call-special-if-mode-active
+                               'helm-mode
+                               'helm-M-x
+                               'execute-extended-command)))
+(global-set-key (kbd "C-x b") (lambda () (interactive)
+                              (call-special-if-mode-active
+                               'helm-mode
+                               'helm-mini
+                               'switch-to-buffer))
+(global-set-key (kbd "C-x C-f") (lambda () (interactive)
+                              (call-special-if-mode-active
+                               'helm-mode
+                               'helm-find-files
+                               'find-file)))
 
 (helm-mode 1)
 

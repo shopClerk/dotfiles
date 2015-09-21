@@ -10,6 +10,11 @@
 (define-key global-map (kbd "S-<f12>") 'org-agenda)
 (define-key global-map (kbd "<f12>") 'org-capture)
 
+(global-set-key (kbd "<C-up>") 'enlarge-window)
+(global-set-key (kbd "<C-down>") 'shrink-window)
+(global-set-key (kbd "<C-left>") 'shrink-window-horizontally)
+(global-set-key (kbd "<C-right>") 'enlarge-window-horizontally)
+
 
 ;; Helps emacs to not break hard links
 (setq backup-by-copying-when-linked t)
