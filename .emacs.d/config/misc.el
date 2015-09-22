@@ -1,7 +1,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Misc configs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Fonts
-;; (set-default-font “Hack-9”)
+(custom-set-faces
+ '(default ((t (:family "Hack" :foundry "bitstream" :slant normal :weight normal :height 96 :width normal)))))
 
 ;; Global key bindings
 
@@ -32,9 +33,6 @@
 
 ;; Mutes that goddamn bell
 (setq visible-bell 1)
-
-(custom-set-faces
- '(default ((t (:family "Hack" :foundry "bitstream" :slant normal :weight normal :height 96 :width normal)))))
 
 ;; Selects the solarized light theme
 ;; there is something weird about the background, it loads a theme
@@ -80,6 +78,9 @@
 (custom-set-variables
   '(auto-save-file-name-transforms '((".*" "~/.emacs.d/autosaves/\\1" t)))
   '(backup-directory-alist '((".*" . "~/.emacs.d/backups/"))))
+
+;; Something I modified for bookmarks - no idea what it does
+(custom-set-variables '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks"))
 
 ;; my position in the religious war
 (setq-default indent-tabs-mode nil)

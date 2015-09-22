@@ -62,9 +62,6 @@
 (add-to-list 'package-archives '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (package-initialize)
 
-;; Loads my config files
-(load-directory "~/.emacs.d/config")
-
 
 ;; As says below
 
@@ -72,47 +69,10 @@
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(LaTeX-math-list
-   (quote
-    ((37 LaTeX-math-frac "" nil)
-     (44 LaTeX-math-cdots "" nil)
-     ("2" LaTeX-math-sqrt "" nil)
-     (111 LaTeX-math-overline "" nil))))
- '(TeX-view-program-list
-   (quote
-    (("qpdfview" "qpdfview --instance emacsauxtex --unique \"\"%o\"#src:%(default-dir)%(buffer-name):%n:0\""))))
- '(TeX-view-program-selection (quote ((output-pdf "qpdfview"))))
- '(auto-save-file-name-transforms (quote ((".*" "~/.emacs.d/autosaves/\\1" t))))
- '(backup-directory-alist (quote ((".*" . "~/.emacs.d/backups/"))))
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(column-number-mode t)
+ ;; If there is more than one, they won't work right. 
  '(gnus-inhibit-startup-message t)
- '(helm-mode t)
- '(magit-use-overlays nil)
- '(org-capture-templates
-   (quote
-    (("t" "todo" entry
-      (file "~/org/capture.org")
-      "* TODO %?
-")
-     ("j" "Journal" entry
-      (file+datetree "~/org/journal.org")
-      (file "~/.emacs.d/org-templates/journal_template.org"))
-     ("i" "Idea" entry
-      (file+datetree "~/org/ideas.org")
-      (file "~/.emacs.d/org-templates/buying_template.org"))
-     ("w" "Buying list" entry
-      (file+datetree "~/org/buying.org")
-      (file "~/.emacs.d/org-templates/buying_template.org")))))
- '(org-refile-targets (quote ((org-agenda-files :level . 1))))
- '(paradox-automatically-star t t)
- '(show-paren-mode t)
- '(tool-bar-mode nil))
+ '(magit-use-overlays nil))
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Hack" :foundry "bitstream" :slant normal :weight normal :height 96 :width normal)))))
+
+;; Loads my config files
+(load-directory "~/.emacs.d/config")
