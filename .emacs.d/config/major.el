@@ -232,6 +232,8 @@
 (require 'helm)
 (require 'helm-config)
 
+(helm-mode 1)
+
 (global-set-key (kbd "C-c h") 'helm-command-prefix)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
@@ -247,7 +249,6 @@
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
 
-
 (global-set-key (kbd "M-y") (lambda () (interactive)
                               (call-special-if-mode-active
                                'helm-mode
@@ -259,17 +260,15 @@
                                'helm-M-x
                                'execute-extended-command)))
 (global-set-key (kbd "C-x b") (lambda () (interactive)
-                              (call-special-if-mode-active
-                               'helm-mode
-                               'helm-mini
-                               'switch-to-buffer))
+                                (call-special-if-mode-active
+                                 'helm-mode
+                                 'helm-mini
+                                 'switch-to-buffer)))
 (global-set-key (kbd "C-x C-f") (lambda () (interactive)
-                              (call-special-if-mode-active
-                               'helm-mode
-                               'helm-find-files
-                               'find-file)))
-
-(helm-mode 1)
+                                  (call-special-if-mode-active
+                                   'helm-mode
+                                   'helm-find-files
+                                   'find-file)))
 
 ;; ESS mode
 ;; (require 'ess-site)
