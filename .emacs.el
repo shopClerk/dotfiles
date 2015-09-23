@@ -1,7 +1,7 @@
 ;; UTF-8 support
 ;; (set-language-environment "UTF-8")
 (setenv "LANG" "en_CA.UTF-8")
-(setenv "LC_ALL" "en_CA.UTF-8") 
+(setenv "LC_ALL" "en_CA.UTF-8")
 
 
 ;; Better remapping for some keys
@@ -69,7 +69,7 @@
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right. 
+ ;; If there is more than one, they won't work right.
  '(gnus-inhibit-startup-message t)
  '(magit-use-overlays nil))
 

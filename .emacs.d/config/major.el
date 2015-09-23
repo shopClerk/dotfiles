@@ -89,14 +89,14 @@
   (setq TeX-view-program-list '(("qpdfview" "qpdfview --instance emacsauxtex --unique \"\"%o\"#src:%(default-dir)%(buffer-name):%n:0\"")))
   (setq TeX-view-program-selection '((output-pdf "qpdfview")))
   )
-(add-hook 'LaTeX-mode-hook 'setup-qpdfview)     
+(add-hook 'LaTeX-mode-hook 'setup-qpdfview)
 
 
 ;; C and C++ stuff
 ;; (defun my-c-mode-hook ()
 ;;   (setq c-basic-offset 4))
 ;; (add-hook 'c-mode-hook 'my-c-mode-hook)
-;; 
+;;
 (defun my-c++-mode-hook ()
   (setq c-basic-offset 4))
 
@@ -110,18 +110,18 @@
   (lambda ()
     (unless (file-exists-p "Makefile")
       (set (make-local-variable 'compile-command)
-	   (let ((file (file-name-nondirectory buffer-file-name)))
-	     (concat "g++ -g -O2 -Wall -o " 
-		     (file-name-sans-extension file)
-		     " " file))))))
+           (let ((file (file-name-nondirectory buffer-file-name)))
+             (concat "g++ -g -O2 -Wall -o "
+                     (file-name-sans-extension file)
+                     " " file))))))
 
 (add-hook 'c++-mode-hook
   (lambda ()
     (unless (file-exists-p "Makefile")
       (set (make-local-variable 'compile-command)
-	   (let ((file (file-name-nondirectory buffer-file-name)))
-	     (concat "gdb -i=mi " (file-name-sans-extension file)))))))
-;; 
+           (let ((file (file-name-nondirectory buffer-file-name)))
+             (concat "gdb -i=mi " (file-name-sans-extension file)))))))
+;;
 ;; (defun my-java-mode-hook ()
 ;;   (setq c-basic-offset 6))
 ;; (add-hook 'java-mode-hook 'my-java-mode-hook)
@@ -285,7 +285,7 @@
 ;;   ;; execute without saving
 ;;   ;; (setq py-execute-no-temp t)
 ;;   )
-;; 
+;;
 ;; (add-hook 'python-mode-hook 'python-mode-preferences-hook)
 ;; (add-hook 'python-mode-hook 'jedi:setup)
 (elpy-enable)

@@ -59,7 +59,7 @@
 ;; (tool-bar-mode 1)
 
 ;; Show line numbers, I think
-(autoload 'linum-mode "linum" "toggle line numbers on/off" t) 
+(autoload 'linum-mode "linum" "toggle line numbers on/off" t)
 (global-set-key (kbd "C-<f5>") 'linum-mode)
 
 ;; Highlight Columns
