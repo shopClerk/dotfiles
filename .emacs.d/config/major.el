@@ -1,9 +1,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Minor modes configs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun call-special-if-mode-active (mode default-f special-f)
-  (if (eval `(bound-and-true-p ,mode))
-      (call-interactively default-f)
-    (call-interactively special-f)))
+(defun special-if-mode-active (mode default-f special-f)
+  `(lambda () (interactive)
+     (if (bound-and-true-p ,mode)
+         (call-interactively ',special-f)
+       (call-interactively ',default-f))))
+
+(defun bind-special-list (keybinds mode)
+  (dolist (keybind keybinds)
+    (let* ((stroke (car keybind))
+           (new (cadr keybind))
+           (old (caddr keybind)))
+      (global-set-key (kbd stroke) (special-if-mode-active mode old new)))))
 
 ;; Expand region stuff
 
@@ -249,26 +257,11 @@
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
 
-(global-set-key (kbd "M-y") (lambda () (interactive)
-                              (call-special-if-mode-active
-                               'helm-mode
-                               'helm-show-kill-ring
-                               'kill-ring)))
-(global-set-key (kbd "M-x") (lambda () (interactive)
-                              (call-special-if-mode-active
-                               'helm-mode
-                               'helm-M-x
-                               'execute-extended-command)))
-(global-set-key (kbd "C-x b") (lambda () (interactive)
-                                (call-special-if-mode-active
-                                 'helm-mode
-                                 'helm-mini
-                                 'switch-to-buffer)))
-(global-set-key (kbd "C-x C-f") (lambda () (interactive)
-                                  (call-special-if-mode-active
-                                   'helm-mode
-                                   'helm-find-files
-                                   'find-file)))
+(let ((keybinds '(("M-y"     helm-show-kill-ring kill-ring)
+                  ("M-x"     helm-M-x            execute-extended-command)
+                  ("C-x b"   helm-mini           switch-to-buffer)
+                  ("C-x C-f" helm-find-files     find-file))))
+  (bind-special-list keybinds 'helm-mode))
 
 ;; ESS mode
 ;; (require 'ess-site)
