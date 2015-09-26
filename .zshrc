@@ -15,7 +15,7 @@ fi
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # Changes terminal color with daylight and so
-if [[ -d $HOME/.dynamic-colors ]]; then
+if [[ ! -n ${INSIDE_EMACS} ]] && [[ -d $HOME/.dynamic-colors ]]; then
     # set the $DAYLIGHT based on hour
     source $HOME/.bin/daylight
 
