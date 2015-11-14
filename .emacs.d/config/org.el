@@ -1,6 +1,8 @@
 ;; force UTF
 ;; (setq org-export-coding-system 'utf8)
 
+;; modules
+(require 'org-habit)
 
 ;; files
 

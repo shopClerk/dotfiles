@@ -314,8 +314,9 @@
 (eval-after-load 'tramp
   '(vagrant-tramp-enable))
 
-;; Some pdf viewer, i think
+;; Super pdf mode stuff
 (pdf-tools-install)
+(customize-set-variable 'pdf-view-midnight-colors (quote ("light gray" . "gray19")))
 
 ;; Fortune cookies in scratch
 (fortune-cookie-mode)
