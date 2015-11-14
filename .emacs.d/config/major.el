@@ -50,9 +50,9 @@
 (add-hook 'LaTeX-mode-hook 'visual-line-mode)
 
 (defun prefs-latex-mode ()
-  (setq TeX-electric-sub-and-superscript t)
+  ;; (setq TeX-electric-sub-and-superscript nil)
   ;; (TeX-add-symbols "foo")
-  (LaTeX-add-environments "align" "align*" "equation*" "theorem")
+  (LaTeX-add-environments "align" "align*" "equation*" "theorem" "pmatrix")
   (customize-set-variable 'LaTeX-math-list
                           (list
                            '(?% LaTeX-math-frac "" nil)
@@ -201,10 +201,10 @@
                '(file))
          '("\\.lyx" "lyx" (file))
          '("\\.chm" "kchmviewer" (file))
-         (list (openwith-make-extension-regexp
-                '("pdf" "ps" "ps.gz" "dvi"))
-               "qpdfview --unique"
-               '(file))
+         ;; (list (openwith-make-extension-regexp
+         ;;        '("pdf" "ps" "ps.gz" "dvi"))
+         ;;       "qpdfview --unique"
+         ;;       '(file))
          ))
   (openwith-mode 1))
 
@@ -302,3 +302,37 @@
 
 (add-hook 'python-mode-hook 'python-prefs-hook)
 (add-hook 'elpy-mode-hook 'elpy-prefs-hook)
+
+;; Slime stuff
+(setq slime-contribs '(slime-fancy slime-cl-indent))
+;; (add-hook 'lisp-mode-hook
+;;           (defun my-lisp-mode-hook ()
+;;             (set (make-local-variable 'lisp-indent-function)
+;;                  'common-lisp-indent-function)))
+
+;; Tramp config
+(eval-after-load 'tramp
+  '(vagrant-tramp-enable))
+
+;; Some pdf viewer, i think
+(pdf-tools-install)
+
+;; Fortune cookies in scratch
+(fortune-cookie-mode)
+
+;; Paredit stuff
+(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
+(add-hook 'emacs-lisp-mode-hook       #'enable-paredit-mode)
+(add-hook 'eval-expression-minibuffer-setup-hook #'enable-paredit-mode)
+(add-hook 'ielm-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-mode-hook             #'enable-paredit-mode)
+(add-hook 'lisp-interaction-mode-hook #'enable-paredit-mode)
+(add-hook 'scheme-mode-hook           #'enable-paredit-mode)
+(add-hook 'slime-repl-mode-hook #'enable-paredit-mode)
+
+;; Stop SLIME's REPL from grabbing DEL,
+;; which is annoying when backspacing over a '('
+(defun override-slime-repl-bindings-with-paredit ()
+  (define-key slime-repl-mode-map
+    (read-kbd-macro paredit-backward-delete-key) nil))
+(add-hook 'slime-repl-mode-hook 'override-slime-repl-bindings-with-paredit)

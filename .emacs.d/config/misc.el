@@ -87,3 +87,12 @@
 
 ;; It makes helm easier to use
 (global-set-key "\M- " 'hippie-expand)
+
+;; Makes files with hasgbang executable
+(add-hook 'after-save-hook
+  'executable-make-buffer-file-executable-if-script-p)
+
+;; Shows current time and date
+(setq display-time-day-and-date t
+      display-time-24hr-format t)
+(display-time)
