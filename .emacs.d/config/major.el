@@ -309,6 +309,7 @@
 ;;           (defun my-lisp-mode-hook ()
 ;;             (set (make-local-variable 'lisp-indent-function)
 ;;                  'common-lisp-indent-function)))
+(load "/home/sggutier/.local/share/quicklisp/clhs-use-local.el" t)
 
 ;; Tramp config
 (eval-after-load 'tramp
