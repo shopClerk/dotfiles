@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Misc configs ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Security stuff
-(tls-checktrust t)
+(customize-set-variable 'tls-checktrust t)
 
 (let ((trustfile
        (replace-regexp-in-string
@@ -18,7 +18,7 @@
 
 ;; Fonts
 (custom-set-faces
- '(default ((t (:family "Hack" :foundry "bitstream" :slant normal :weight normal :height 96 :width normal)))))
+  '(default ((t (:family "Hack" :foundry "bitstream" :slant normal :weight normal :height 96 :width normal)))))
 
 ;; Global key bindings
 
@@ -37,7 +37,7 @@
 (setq backup-by-copying-when-linked t)
 
 (column-number-mode)
-(menu-bar-mode 1)
+(menu-bar-mode -1)
 
 
 (when window-system
@@ -106,9 +106,14 @@
 
 ;; Makes files with hasgbang executable
 (add-hook 'after-save-hook
-  'executable-make-buffer-file-executable-if-script-p)
+          'executable-make-buffer-file-executable-if-script-p)
+
+;; Add autocompletition from company-mode
+(company-mode)
+(company-quickhelp-mode 1)
+;; (define-key company-active-map (kbd "C-<f1>") 'company-show-doc-buffer)
 
 ;; Shows current time and date
-(setq display-time-day-and-date t
-      display-time-24hr-format t)
-(display-time)
+;; (setq display-time-day-and-date t
+;;       display-time-24hr-format t)
+;; (display-time)
