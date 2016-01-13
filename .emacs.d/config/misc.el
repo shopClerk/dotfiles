@@ -130,3 +130,11 @@
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\rc\\'" . conf-unix-mode))
 ;; (add-to-list 'auto-mode-alist '("\.py\'" . python-mode))
+
+
+;; Calendar stuff
+(customize-set-variable 'holiday-bahai-holidays nil)
+(customize-set-variable 'holiday-hebrew-holidays nil)
+(customize-set-variable 'holiday-islamic-holidays nil)
+(setq calendar-holidays (append calendar-holidays holiday-mexican-holidays))
+

@@ -76,6 +76,7 @@
 
 
 ;; Loads my config files
+(load-directory "~/.emacs.d/my_scripts")
 (load-directory "~/.emacs.d/config")
 
 (custom-set-faces

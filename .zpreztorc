@@ -41,7 +41,8 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting' \
   'prompt' \
   'ruby' \
-  'rails' 
+  'rails' \
+  'screen'
 #   'python' 
 
 #
