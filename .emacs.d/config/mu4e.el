@@ -27,7 +27,7 @@
      (smtpmail-smtp-server         ,sensible-email-account-2-smtp)
      (smtpmail-stream-type         ,sensible-email-account-2-stream)
      (smtpmail-smtp-service        ,sensible-email-account-2-smtp-port))
-    ("Gmail"
+    ("MeGmail"
      (mu4e-sent-folder "/MeGmail/sent")
      (mu4e-drafts-folder "/MeGmail/drafts")
      (mu4e-trash-folder "/MeGmail/trash")
