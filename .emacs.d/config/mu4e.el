@@ -1,4 +1,6 @@
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu4e")
+(require 'mu4e)
+(require 'mu4e-contrib)
 (require 'smtpmail)
 
 ;; Make emacs use smtp for sending emails
@@ -71,8 +73,6 @@
 
 (setq mu4e-user-mail-address-list `(,sensible-email-account-1-user ,sensible-email-account-2-user ,sensible-email-account-3-user ,sensible-email-account-4-user ,sensible-default-email))
 
-(require 'mu4e)
-
 (add-hook 'mu4e-compose-pre-hook 'my-mu4e-set-account)
 
 (setq mu4e-maildir (expand-file-name "~/.Mail"))
@@ -101,6 +101,9 @@
 
 ;; set pdf viewer
 (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
+
+;; set html renderer
+(setq mu4e-html2text-command 'mu4e-shr2text)
 
 ;; use imagemagick, if available
 (when (fboundp 'imagemagick-register-types)
@@ -131,3 +134,16 @@
          '("in browser" . mu4e-action-view-in-browser) t)
 (add-to-list 'mu4e-view-actions
          '("in browser" . mu4e-action-view-in-browser) t)
+
+(setq mu4e-view-show-addresses t)
+
+
+;; bbdb stuff
+(autoload 'bbdb-insinuate-mu4e "bbdb-mu4e")
+(bbdb-initialize 'message 'mu4e)
+(setq bbdb-mail-user-agent (quote message-user-agent))
+(setq mu4e-view-mode-hook (quote (bbdb-mua-auto-update visual-line-mode)))
+(setq mu4e-compose-complete-addresses nil)
+(setq bbdb-mua-pop-up t)
+(setq bbdb-mua-pop-up-window-size 5)
+
