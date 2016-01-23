@@ -139,11 +139,15 @@
 
 
 ;; bbdb stuff
+(defun bbdb-view-mode-config ()
+  (local-set-key (kbd ",") 'bbdb-mua-display-all-recipients))
+
 (autoload 'bbdb-insinuate-mu4e "bbdb-mu4e")
 (bbdb-initialize 'message 'mu4e)
 (setq bbdb-mail-user-agent (quote message-user-agent))
-(setq mu4e-view-mode-hook (quote (bbdb-mua-auto-update visual-line-mode)))
+(setq mu4e-view-mode-hook '(bbdb-view-mode-config bbdb-mua-auto-update visual-line-mode))
 (setq mu4e-compose-complete-addresses nil)
-(setq bbdb-mua-pop-up t)
-(setq bbdb-mua-pop-up-window-size 5)
+(setq bbdb-mua-pop-up nil)
+;; (setq bbdb-mua-pop-up-window-size 5)
+
 
