@@ -3,19 +3,6 @@
 ;; Security stuff
 (customize-set-variable 'tls-checktrust t)
 
-(let ((trustfile
-       (replace-regexp-in-string
-        "\\\\" "/"
-        (replace-regexp-in-string
-         "\n" ""
-         (shell-command-to-string "python -m certifi")))))
-  (setq tls-program
-        (list
-         (format "gnutls-cli%s --x509cafile %s -p %%p %%h"
-                 (if (eq window-system 'w32) ".exe" "") trustfile)))
-  (setq gnutls-verify-error t)
-  (setq gnutls-trustfiles (list trustfile)))
-
 ;; Fonts
 (custom-set-faces
   '(default ((t (:family "Hack" :foundry "bitstream" :slant normal :weight normal :height 96 :width normal)))))
@@ -24,6 +11,8 @@
 
 (define-key global-map (kbd "<f11>") 'calc)
 ;; (define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map (kbd "S-<f9>") 'org-pomodoro)
+(define-key global-map (kbd "<f9>") 'org-clock-select-task)
 (define-key global-map (kbd "S-<f12>") 'org-agenda)
 (define-key global-map (kbd "<f12>") 'org-capture)
 
@@ -135,3 +124,8 @@
 ;; Calendar stuff
 (setq calendar-holidays holiday-mexican-holidays)
 
+;; File size threshold
+(setq large-file-warning-threshold 100000000)
+
+;; Password cache threshold
+(setq password-cache-expiry (* 60 60))

@@ -48,7 +48,7 @@
 ;;;;;;;;;;;;;;;;;;;; Refile config
 
 ;; Targets any file in the agenda with exactly one level
-(customize-set-variable 'org-refile-targets (quote ((org-agenda-files :level . 1))))
+(setq org-refile-targets (quote ((org-agenda-files :level . 1))))
 
 ;; Use full outline paths for refile targets
 (setq org-refile-use-outline-path t)
@@ -60,22 +60,22 @@
 (setq org-refile-allow-creating-parent-nodes (quote confirm))
 
 ;; capture templates
-(customize-set-variable 'org-capture-templates
-                        (list
-                         '("t" "todo" entry
-                           (file "~/org/capture.org")
-                           ;; "* TODO %?\n %U\n %a")
-                           "* TODO %?\n")
-                         '("j" "Journal" entry
-                           (file+datetree "~/org/journal.org")
-                           (file "~/.emacs.d/org-templates/journal_template.org"))
-                         '("i" "Idea" entry
-                           (file+datetree "~/org/ideas.org")
-                           (file "~/.emacs.d/org-templates/buying_template.org"))
-                         '("w" "Buying list" entry
-                           (file+datetree "~/org/buying.org")
-                           (file "~/.emacs.d/org-templates/buying_template.org"))
-                         ))
+(setq org-capture-templates
+      (list
+       '("t" "todo" entry
+         (file "~/org/capture.org")
+         ;; "* TODO %?\n %U\n %a")
+         "* TODO %?\n")
+       '("j" "Journal" entry
+         (file+datetree "~/org/journal.org")
+         (file "~/.emacs.d/org-templates/journal_template.org"))
+       '("i" "Idea" entry
+         (file+datetree "~/org/ideas.org")
+         (file "~/.emacs.d/org-templates/buying_template.org"))
+       '("w" "Buying list" entry
+         (file+datetree "~/org/buying.org")
+         (file "~/.emacs.d/org-templates/buying_template.org"))
+       ))
 
 ;; (setq org-ditaa-jar-path "~/Utilities/gits/org-mode/contrib/scripts/ditaa.jar")
 ;; (setq org-ditaa-jar-path "/usr/share/ditaa.jar")
@@ -85,6 +85,10 @@
                                (ruby . t)
                                (sh . t)
                                ))
+
+;; Save clock history
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
 
 ;; sync
 (run-at-time "00:59" 3600 'org-save-all-org-buffers)
